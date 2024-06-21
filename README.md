@@ -3,4 +3,6 @@
 - Docker-compose
 - Токен amoCRM в secrets/token.txt
 # Запуск
-docker-compose up
+```bash
+> docker-compose up
+```
