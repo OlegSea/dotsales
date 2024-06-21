@@ -4,12 +4,13 @@ import { useQueryClient, useQuery, useMutation } from '@tanstack/vue-query'
 
 // Access QueryClient instance
 const queryClient = useQueryClient()
-const api_url = "http://192.168.1.4:3000" // TODO: Перенести в Environment
 
 // Query
 const { isPending, isError, data, error } = useQuery({
   queryKey: ['leads'],
-  queryFn: () => fetch(`http://192.168.1.4:3000/api/leads`).then(res => res.json()),
+  // FIXME: Убрать хардкод, тащить его из compose.yml
+  // Если не работает - исправьте айпи на свой
+  queryFn: () => fetch(`http://127.0.0.1:3000/api/leads`).then(res => res.json()),
 })
 
 </script>
