@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios'
 import { readFile } from 'fs/promises';
 import { Lead, Status, Contact } from './types'
+import { log } from 'console';
 
 const base_url = "https://taalexashow.amocrm.ru"
 
@@ -74,6 +75,10 @@ export class AppService {
 
   async parse_leads(data): Promise<Lead[]> {
     let result = []
+    if (!data._embedded) {
+      return result
+    }
+
     for (let lead of data._embedded.leads) {
       result.push({
         "id": lead.id,
@@ -89,13 +94,14 @@ export class AppService {
     return result
   }
 
-  async leads(): Promise<Lead[]> {
+  async leads(query: { query: string }): Promise<Lead[]> {
     const response = await axios.get(`${base_url}/api/v4/leads`, {
       headers: {
         'Authorization': `Bearer ${this.access_token}`
       },
       params: {
-        "with": "contacts"
+        "with": "contacts",
+        "query": query.query
       }
     })
 

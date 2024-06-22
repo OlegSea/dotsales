@@ -10,7 +10,7 @@ const { isPending, isError, data, error } = useQuery({
   queryKey: ['leads'],
   // FIXME: Убрать хардкод, тащить его из compose.yml
   // Если не работает - исправьте айпи на свой
-  queryFn: () => fetch(`http://127.0.0.1:3000/api/leads`).then(res => res.json()),
+  queryFn: () => fetch(`http://192.168.1.4:3000/api/leads`).then(res => res.json()),
 })
 
 </script>
